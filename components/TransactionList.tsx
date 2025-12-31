@@ -1,6 +1,7 @@
+
 import React from 'react';
-import { Transaction, TransactionType } from '../types';
-import { CATEGORY_METADATA } from '../constants';
+import { Transaction, TransactionType } from '../types.ts';
+import { CATEGORY_METADATA } from '../constants.tsx';
 import { Trash2, Search } from 'lucide-react';
 
 interface TransactionListProps {

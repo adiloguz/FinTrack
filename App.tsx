@@ -2,22 +2,19 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Transaction, 
-  Subscription, 
   UserProfile, 
   TransactionType, 
   Category, 
-  SubscriptionFrequency,
   Budget,
   SavingsGoal
-} from './types';
-import { INITIAL_PROFILE, CURRENCIES, CATEGORY_METADATA, GOAL_COLORS } from './constants';
-import TransactionList from './components/TransactionList';
-import AdvancedCharts from './components/AdvancedCharts';
+} from './types.ts';
+import { INITIAL_PROFILE, CURRENCIES, CATEGORY_METADATA, GOAL_COLORS } from './constants.tsx';
+import TransactionList from './components/TransactionList.tsx';
+import AdvancedCharts from './components/AdvancedCharts.tsx';
 import { 
   Home, 
   PieChart as ChartIcon, 
   Wallet, 
-  User, 
   Plus, 
   Target, 
   Download, 
@@ -27,9 +24,7 @@ import {
   X,
   CreditCard,
   TrendingUp,
-  ArrowRightLeft,
-  Settings,
-  Trash2
+  Settings
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -155,7 +150,6 @@ const App: React.FC = () => {
     if (!selectedGoal) return;
     setGoals(goals.map(g => g.id === selectedGoal.id ? { ...g, currentAmount: g.currentAmount + amount } : g));
     
-    // Log as a transaction to reflect in balance
     const newTx: Transaction = {
       id: crypto.randomUUID(),
       type: amount > 0 ? TransactionType.EXPENSE : TransactionType.INCOME,
@@ -168,10 +162,8 @@ const App: React.FC = () => {
     setActiveModal(null);
   };
 
-  // --- Sub-Renders ---
   const renderHome = () => (
     <div className="space-y-8 animate-slide-up">
-      {/* Balance Card - Premium Gradient */}
       <div className="bg-slate-900 rounded-[3rem] p-8 text-white shadow-2xl relative overflow-hidden group">
         <div className="relative z-10">
           <p className="text-indigo-400 text-[10px] font-black uppercase tracking-[0.25em] mb-1">Cüzdan Özeti</p>
@@ -192,7 +184,6 @@ const App: React.FC = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full -mr-32 -mt-32 blur-[80px]"></div>
       </div>
 
-      {/* Action Grid */}
       <div className="grid grid-cols-4 gap-4">
         {[
           { icon: Plus, label: 'Ekle', color: 'bg-indigo-600', modal: 'tx' },
@@ -213,7 +204,6 @@ const App: React.FC = () => {
         ))}
       </div>
 
-      {/* Savings Goal - Scrollable */}
       {goals.length > 0 && (
         <section className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
           <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-6">Birikim Hedefleri</h3>
@@ -236,7 +226,6 @@ const App: React.FC = () => {
         </section>
       )}
 
-      {/* Recent Activity */}
       <section className="pb-24">
         <div className="flex justify-between items-center mb-6 px-2">
           <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Son İşlemler</h3>
@@ -255,7 +244,6 @@ const App: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-slate-50 flex flex-col relative text-slate-900 select-none">
-      {/* App Bar */}
       <header className="px-8 pt-14 pb-8 flex justify-between items-center sticky top-0 bg-slate-50/90 backdrop-blur-xl z-30">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tighter flex items-center space-x-2">
@@ -272,7 +260,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Container */}
       <main className="px-8 flex-1">
         {activeView === 'home' && renderHome()}
         {activeView === 'stats' && (
@@ -358,7 +345,6 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md px-6 pb-8 z-40">
         <div className="bg-slate-900/95 backdrop-blur-2xl rounded-[3rem] px-8 py-5 flex justify-between items-center shadow-2xl">
           {[
@@ -378,7 +364,6 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {/* Modals */}
       {activeModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white w-full sm:max-w-md rounded-t-[4rem] sm:rounded-[3rem] p-10 shadow-2xl animate-in slide-in-from-bottom-full duration-500 overflow-y-auto max-h-[90vh]">

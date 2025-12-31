@@ -4,7 +4,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, AreaChart, Area 
 } from 'recharts';
-import { Transaction, TransactionType } from '../types';
+import { Transaction, TransactionType } from '../types.ts';
 
 interface Props {
   transactions: Transaction[];
@@ -48,7 +48,6 @@ const AdvancedCharts: React.FC<Props> = ({ transactions, currency, monthKey }) =
 
   return (
     <div className="space-y-6">
-      {/* Spending Trend Area Chart */}
       <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm">
         <h3 className="text-xs font-black text-slate-400 mb-6 uppercase tracking-[0.2em] text-center">Harcama Trendi</h3>
         <div className="h-48 w-full">
@@ -74,7 +73,6 @@ const AdvancedCharts: React.FC<Props> = ({ transactions, currency, monthKey }) =
       </div>
 
       <div className="grid grid-cols-1 gap-6">
-        {/* Comparison Bar Chart */}
         <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm">
           <h3 className="text-xs font-black text-slate-400 mb-6 uppercase tracking-[0.2em] text-center">Özet Kıyas</h3>
           <div className="h-40 w-full">
@@ -90,7 +88,6 @@ const AdvancedCharts: React.FC<Props> = ({ transactions, currency, monthKey }) =
           </div>
         </div>
 
-        {/* Donut Category Chart */}
         {expenseData.length > 0 && (
           <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm">
             <h3 className="text-xs font-black text-slate-400 mb-6 uppercase tracking-[0.2em] text-center">Kategori Bazlı</h3>
